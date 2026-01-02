@@ -216,3 +216,9 @@ As principais decisões arquiteturais serão documentadas utilizando o padrão *
 
 - Guia sobre Architecture Decision Records (ADR)  
   https://medium.com/@jhonywalkeer/guia-completo-sobre-architecture-decision-records-adr-defini%C3%A7%C3%A3o-e-melhores-pr%C3%A1ticas-f63e66d33e6
+
+- Entendendo o C4 Model: Uma Abordagem para Arquitetura de Software  
+  https://medium.com/cajudevs/entendendo-o-c4-model-uma-abordagem-para-arquitetura-de-software-3ed0f007ae66
+
+- C4 Model Documentation - Diagrams
+  https://c4model.com/diagrams
