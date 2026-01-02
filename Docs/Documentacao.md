@@ -209,7 +209,62 @@ As principais decisões arquiteturais serão documentadas utilizando o padrão *
 
 ---
 
-## 8. Referências
+## 8. ADRs
+
+# ADR-001 — Escolha da AWS como Provedor de Nuvem Principal
+
+## Status
+Aceito
+
+## Contexto
+
+Durante a fase de planejamento da arquitetura do sistema **CashFlow**, foram desenvolvidos dois diagramas de arquitetura comparativos: um utilizando serviços da **Amazon Web Services (AWS)** e outro utilizando **Microsoft Azure** na plataforma cloudcraft, que ajuda a fazer estimativas de preço na cloud em ambas plataformas.
+
+Ambas as soluções foram projetadas para suportar os **mesmos requisitos funcionais e não funcionais**, garantindo equivalência em termos de capacidade de processamento, armazenamento, disponibilidade e escalabilidade.
+
+### Arquitetura AWS Proposta
+
+- **Computação:** EKS (Elastic Kubernetes Service) para orquestração de containers  
+- **API Gateway:** Gerenciamento e roteamento de APIs  
+- **CDN:** CloudFront para distribuição de conteúdo  
+- **Banco de Dados NoSQL:** DynamoDB para dados de CashFlow e Financial  
+- **Cache:** ElastiCache (Redis) para otimização de performance  
+- **Mensageria:** SQS (Simple Queue Service) para filas AMQP  
+
+### Arquitetura Azure Proposta
+
+- **Computação:** AKS (Azure Kubernetes Service) para orquestração de containers  
+- **API Management:** Gerenciamento e roteamento de APIs  
+- **Banco de Dados NoSQL:** Cosmos DB para dados financeiros e consolidação  
+- **Cache:** Azure Cache for Redis  
+- **Mensageria:** Service Bus para filas e mensageria  
+
+Ambas as arquiteturas foram **dimensionadas para atender os mesmos volumes de requisições, armazenamento e processamento**.  
+Após o dimensionamento, foram realizadas **estimativas detalhadas de custos mensais** para cada provedor.
+
+## Decisão
+
+Decidimos utilizar a **Amazon Web Services (AWS)** como o **provedor de nuvem principal** para o sistema de CashFlow.
+
+## Justificativa
+
+### 1. Custo-Benefício
+
+A análise comparativa de custos mensais revelou que a solução em AWS apresenta **custos operacionais significativamente menores** quando comparada à Azure para a carga de trabalho específica do sistema.
+
+Os principais fatores de economia identificados foram:
+
+- Precificação mais competitiva do **DynamoDB** em comparação ao **Cosmos DB**
+- Custos de **transferência de dados** mais favoráveis
+- Modelo de precificação do **ElastiCache** mais aderente ao padrão de uso do sistema
+
+**Estimativa de Custo de infra mensal - Azure**
+![Diagrama de topologia](./ImgDocs/costs-1.png)
+
+**Estimativa de Custo de infra mensal - AWS**
+![Diagrama de topologia](./ImgDocs/costs-2.png)
+
+## 9. Referências
 
 - RabbitMQ Documentation  
   https://www.rabbitmq.com/docs
