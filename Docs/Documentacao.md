@@ -161,7 +161,9 @@ title Diagrama de Contêiner - Interface Channel (Frontend)
     Rel(web_app, consolidate_sys, "Faz chamadas API", "JSON/HTTP")
 
 ```
+### 4.1.3 Diagramas de Topologia
 
+![Diagrama de topologia](./ImgDocs/topology-diagram.png)
 ---
 
 ## 5. Requisitos
