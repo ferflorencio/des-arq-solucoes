@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Sdk Name="Aspire.AppHost.Sdk" Version="9.5.0" />
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <UserSecretsId>e54c71ca-00d7-4974-b5c6-4446402034bf</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SolutionArchitect.CashFlow.ApiService\SolutionArchitect.CashFlow.ApiService.csproj" />
+    <ProjectReference Include="..\SolutionArchitect.CashFlow.FinancialConsolidate.Worker\SolutionArchitect.CashFlow.FinancialConsolidate.Worker.csproj" />
+    <ProjectReference Include="..\SolutionArchitect.CashFlow.Web\SolutionArchitect.CashFlow.Web.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspire.Hosting.AppHost" Version="13.1.0" />
+    <PackageReference Include="Aspire.Hosting.MongoDB" Version="13.1.0" />
+  </ItemGroup>
+
+</Project>
