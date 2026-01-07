@@ -1,4 +1,5 @@
 ﻿using MongoDB.Driver;
+using SolutionArchitect.CashFlow.Api.Data.Database;
 using SolutionArchitect.CashFlow.Api.Data.Mappers;
 using SolutionArchitect.CashFlow.Api.Domain.Aggregates;
 using SolutionArchitect.CashFlow.Api.Shareable.Dtos;

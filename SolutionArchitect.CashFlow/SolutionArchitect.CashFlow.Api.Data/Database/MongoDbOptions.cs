@@ -1,4 +1,4 @@
-﻿namespace SolutionArchitect.CashFlow.Api.Data;
+﻿namespace SolutionArchitect.CashFlow.Api.Data.Database;
 
 public sealed record MongoOptions
 {

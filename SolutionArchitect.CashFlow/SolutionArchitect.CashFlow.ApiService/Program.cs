@@ -13,6 +13,7 @@ builder.Services.AddProblemDetails();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<ExecuteCashFlowOperationHandler>());
 builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddMessaging(builder.Configuration);
 builder.Services.AddCashFlowResilience();
 
 builder.Services.AddOpenApi(c =>

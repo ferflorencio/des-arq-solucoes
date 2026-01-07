@@ -2,7 +2,7 @@
 using MongoDB.Driver;
 using SolutionArchitect.CashFlow.Api.Shareable.Dtos;
 
-namespace SolutionArchitect.CashFlow.Api.Data;
+namespace SolutionArchitect.CashFlow.Api.Data.Database;
 
 public sealed class MongoDbContext(IMongoClient client, IOptions<MongoOptions> options)
 {

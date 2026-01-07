@@ -2,12 +2,15 @@ using Aspire.Hosting;
 
 var builder = DistributedApplication.CreateBuilder(args);
 
-var db = builder.AddMongoDB("mongodb").AddDatabase("cashflow");
+var db = builder.AddMongoDB("mongodb").WithDataVolume().AddDatabase("cashflow");
+
+
+var rabbit = builder.AddRabbitMQ("rabbit").WithManagementPlugin();
 
 var apiService = builder.AddProject<Projects.SolutionArchitect_CashFlow_ApiService>("apiservice")
     .WithHttpHealthCheck("/health")
-    .WithReference(db); ;
-
+    .WithReference(db)
+    .WithReference(rabbit);
 
 builder.AddProject<Projects.SolutionArchitect_CashFlow_Web>("webfrontend")
     .WithExternalHttpEndpoints()
