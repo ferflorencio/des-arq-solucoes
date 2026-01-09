@@ -24,10 +24,30 @@ public sealed class CashFlowRepository(MongoDbContext context) : ICashFlowReposi
             : CashFlowMapper.ToDomain(document);
     }
 
-    public async Task TrySaveAsync(
-        CashFlowAggregate aggregate,
-        CancellationToken cancellationToken)
+    public async Task TrySaveAsync(CashFlowAggregate aggregate, CancellationToken cancellationToken)
     {
+        if (aggregate.Version == 0)
+        {
+            var document = new CashFlowDocument
+            {
+                Date = aggregate.Date,
+                Balance = aggregate.Balance,
+                Version = 1
+            };
+
+            try
+            {
+                await _context.CashFlow.InsertOneAsync(document, cancellationToken: cancellationToken);
+            }
+            catch (MongoWriteException ex)
+                when (ex.WriteError.Category == ServerErrorCategory.DuplicateKey)
+            {
+                throw new LockException();
+            }
+
+            return;
+        }
+
         var filter = Builders<CashFlowDocument>.Filter.And(
             Builders<CashFlowDocument>.Filter.Eq(x => x.Date, aggregate.Date),
             Builders<CashFlowDocument>.Filter.Eq(x => x.Version, aggregate.Version)
@@ -37,13 +57,9 @@ public sealed class CashFlowRepository(MongoDbContext context) : ICashFlowReposi
             .Set(x => x.Balance, aggregate.Balance)
             .Inc(x => x.Version, 1);
 
-        var result = await _context.CashFlow.UpdateOneAsync(
-            filter,
-            update,
-            new UpdateOptions { IsUpsert = aggregate.Version == 0 },
-            cancellationToken);
+        var result = await _context.CashFlow.UpdateOneAsync(filter, update, cancellationToken: cancellationToken);
 
-        if (result.MatchedCount == 0 && aggregate.Version != 0)
+        if (result.MatchedCount == 0)
         {
             throw new LockException();
         }

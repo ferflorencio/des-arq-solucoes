@@ -2,7 +2,7 @@ var builder = DistributedApplication.CreateBuilder(args);
 
 var db = builder.AddMongoDB("mongodb").WithDataVolume().AddDatabase("cashflow");
 
-var redis = builder.AddRedis("redis");
+var redis = builder.AddRedis("redis").WithRedisInsight();
 
 var rabbit = builder.AddRabbitMQ("rabbit").WithManagementPlugin();
 
