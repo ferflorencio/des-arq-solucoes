@@ -8,10 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Aspire.RabbitMQ.Client" Version="13.1.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.1" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SolutionArchitect.CashFlow.FinancialConsolidate.Worker.Data\SolutionArchitect.CashFlow.FinancialConsolidate.Worker.Data.csproj" />
     <ProjectReference Include="..\SolutionArchitect.CashFlow.ServiceDefaults\SolutionArchitect.CashFlow.ServiceDefaults.csproj" />
   </ItemGroup>
 </Project>

@@ -13,7 +13,8 @@ builder.Services.AddProblemDetails();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<ExecuteCashFlowOperationHandler>());
 builder.Services.AddInfrastructure(builder.Configuration);
-builder.Services.AddMessaging(builder.Configuration);
+builder.AddRabbitMQClient("rabbit");
+builder.Services.AddMessaging();
 builder.Services.AddCashFlowResilience();
 
 builder.Services.AddOpenApi(c =>
@@ -57,5 +58,4 @@ if (app.Environment.IsDevelopment())
 
 app.MapDefaultEndpoints();
 app.MapAppEndpoints();
-
 app.Run();

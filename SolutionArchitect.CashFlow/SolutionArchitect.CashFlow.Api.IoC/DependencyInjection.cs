@@ -42,20 +42,8 @@ public static class DependencyInjection
         return services;
     }
 
-    public static IServiceCollection AddMessaging(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddMessaging(this IServiceCollection services)
     {
-        services.Configure<RabbitMqOptions>(options =>
-        {
-            options.ConnectionString =
-                configuration.GetConnectionString("rabbit")
-                ?? throw new InvalidOperationException(
-                    "RabbitMQ connection string not found.");
-        });
-
-        services.AddSingleton(sp =>
-            sp.GetRequiredService<IOptions<RabbitMqOptions>>().Value);
-
-        services.AddSingleton<RabbitMqConnection>();
         services.AddScoped<IEventPublisher, RabbitMqEventPublisher>();
 
         return services;

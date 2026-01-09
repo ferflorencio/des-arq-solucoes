@@ -14,6 +14,8 @@
     <Project Path="SolutionArchitect.CashFlow.Web/SolutionArchitect.CashFlow.Web.csproj" />
   </Folder>
   <Folder Name="/SolutionArchitect.CashFlow.Worker/">
+    <Project Path="SolutionArchitect.CashFlow.FinancialConsolidate.Worker.Data/SolutionArchitect.CashFlow.FinancialConsolidate.Worker.Data.csproj" Id="409a43eb-d22d-4422-827e-c349c420bd66" />
+    <Project Path="SolutionArchitect.CashFlow.FinancialConsolidate.Worker.Domain/SolutionArchitect.CashFlow.FinancialConsolidate.Worker.Domain.csproj" Id="55a425d6-1e72-44b1-b982-4916e3a65ff6" />
     <Project Path="SolutionArchitect.CashFlow.FinancialConsolidate.Worker/SolutionArchitect.CashFlow.FinancialConsolidate.Worker.csproj" />
   </Folder>
   <Folder Name="/Tests/">
