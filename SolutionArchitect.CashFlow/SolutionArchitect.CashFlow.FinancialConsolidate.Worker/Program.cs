@@ -2,7 +2,8 @@ using SolutionArchitect.CashFlow.FinancialConsolidate.Worker;
 using SolutionArchitect.CashFlow.FinancialConsolidate.Worker.Data;
 using SolutionArchitect.CashFlow.FinancialConsolidate.Worker.Data.Cache;
 using SolutionArchitect.CashFlow.FinancialConsolidate.Worker.Data.Messaging;
-using SolutionArchitect.CashFlow.FinancialConsolidate.Worker.Domain;
+using SolutionArchitect.CashFlow.FinancialConsolidate.Worker.Domain.Cache;
+using SolutionArchitect.CashFlow.ServiceDefaults;
 using StackExchange.Redis;
 
 var builder = Host.CreateApplicationBuilder(args);

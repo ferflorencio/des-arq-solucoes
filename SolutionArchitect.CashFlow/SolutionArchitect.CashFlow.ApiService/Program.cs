@@ -4,6 +4,7 @@ using SolutionArchitect.CashFlow.Api.Domain.Factories;
 using SolutionArchitect.CashFlow.Api.Domain.Handlers;
 using SolutionArchitect.CashFlow.Api.IoC;
 using SolutionArchitect.CashFlow.ApiService.Endpoints;
+using SolutionArchitect.CashFlow.ServiceDefaults;
 
 var builder = WebApplication.CreateBuilder(args);
 

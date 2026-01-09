@@ -1,0 +1,6 @@
+@SolutionArchitect.CashFlow.Consolidate.ApiService_HostAddress = http://localhost:5151
+
+GET {{SolutionArchitect.CashFlow.Consolidate.ApiService_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

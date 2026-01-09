@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
-using SolutionArchitect.CashFlow.FinancialConsolidate.Worker.Domain;
+using SolutionArchitect.CashFlow.FinancialConsolidate.Worker.Domain.Cache;
 using SolutionArchitect.CashFlow.FinancialConsolidate.Worker.Domain.Messaging;
 using System.Text;
 using System.Text.Json;

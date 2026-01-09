@@ -1,4 +1,4 @@
-﻿namespace SolutionArchitect.CashFlow.FinancialConsolidate.Worker.Domain;
+﻿namespace SolutionArchitect.CashFlow.FinancialConsolidate.Worker.Domain.Cache;
 public interface ICashFlowCache
 {
     Task SetAsync(

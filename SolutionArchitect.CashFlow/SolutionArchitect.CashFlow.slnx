@@ -6,6 +6,12 @@
     <Project Path="SolutionArchitect.CashFlow.Api.Shareable/SolutionArchitect.CashFlow.Api.Shareable.csproj" Id="d49bfae9-b2eb-4d31-be36-c5901663f395" />
     <Project Path="SolutionArchitect.CashFlow.ApiService/SolutionArchitect.CashFlow.ApiService.csproj" />
   </Folder>
+  <Folder Name="/SolutionArchitect.CashFlow.Consolidate.Api/">
+    <Project Path="SolutionArchitect.CashFlow.Consolidate.Api.Data/SolutionArchitect.CashFlow.Consolidate.Api.Data.csproj" Id="932e82ce-122a-4626-af89-b3b76308ca7b" />
+    <Project Path="SolutionArchitect.CashFlow.Consolidate.Api.Domain/SolutionArchitect.CashFlow.Consolidate.Api.Domain.csproj" Id="7aa74742-9358-4fa8-86e9-476bf4471c73" />
+    <Project Path="SolutionArchitect.CashFlow.Consolidate.Api.Shareable/SolutionArchitect.CashFlow.Consolidate.Api.Shareable.csproj" Id="3c0e4cad-2a0b-40cf-88b5-d80ec43e3a0a" />
+    <Project Path="SolutionArchitect.CashFlow.Consolidate.ApiService/SolutionArchitect.CashFlow.Consolidate.ApiService.csproj" />
+  </Folder>
   <Folder Name="/SolutionArchitect.CashFlow.Shared/">
     <Project Path="SolutionArchitect.CashFlow.AppHost/SolutionArchitect.CashFlow.AppHost.csproj" />
     <Project Path="SolutionArchitect.CashFlow.ServiceDefaults/SolutionArchitect.CashFlow.ServiceDefaults.csproj" />

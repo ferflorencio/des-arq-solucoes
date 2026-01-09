@@ -1,4 +1,4 @@
-﻿using SolutionArchitect.CashFlow.FinancialConsolidate.Worker.Domain;
+﻿using SolutionArchitect.CashFlow.FinancialConsolidate.Worker.Domain.Cache;
 using StackExchange.Redis;
 
 namespace SolutionArchitect.CashFlow.FinancialConsolidate.Worker.Data.Cache;
