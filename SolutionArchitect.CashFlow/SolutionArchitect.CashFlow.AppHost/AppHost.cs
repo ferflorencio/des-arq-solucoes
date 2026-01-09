@@ -1,6 +1,6 @@
 var builder = DistributedApplication.CreateBuilder(args);
 
-var db = builder.AddMongoDB("mongodb").WithDataVolume().AddDatabase("cashflow");
+var db = builder.AddMongoDB("mongodb").WithDataVolume().WithMongoExpress().AddDatabase("cashflow");
 
 var redis = builder.AddRedis("redis").WithRedisInsight();
 
