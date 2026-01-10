@@ -17,7 +17,7 @@ public sealed class AppException(string message) : DomainException(message)
 {
 }
 
-public sealed class LockException(string message) : DomainException(message)
+public sealed class ConcurrencyException(string message) : DomainException(message)
 {
 }
 

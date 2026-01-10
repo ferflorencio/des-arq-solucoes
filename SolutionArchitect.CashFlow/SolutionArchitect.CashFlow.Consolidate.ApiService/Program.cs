@@ -72,7 +72,7 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-app.UseDomainExceptionHandling();
+app.UseApiExceptionHandling();
 
 app.MapAppEndpoints();
 
