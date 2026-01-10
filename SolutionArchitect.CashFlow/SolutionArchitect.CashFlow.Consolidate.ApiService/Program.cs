@@ -2,6 +2,7 @@ using SolutionArchitect.CashFlow.Consolidate.Api.Data.Cache;
 using SolutionArchitect.CashFlow.Consolidate.Api.Domain.Cache;
 using SolutionArchitect.CashFlow.Consolidate.Api.Domain.Handlers;
 using SolutionArchitect.CashFlow.Consolidate.ApiService.Endpoints;
+using SolutionArchitect.CashFlow.Consolidate.ApiService.Extensions;
 using SolutionArchitect.CashFlow.ServiceDefaults;
 using StackExchange.Redis;
 
@@ -22,6 +23,15 @@ builder.Services.AddScoped<ICashFlowCache, RedisConsolidateCache>();
 builder.Services.AddMediatR(cfg =>
     cfg.RegisterServicesFromAssemblyContaining<
         GetDailyConsolidatedCashFlowHandler>());
+
+builder.Services.AddProblemDetails(options =>
+{
+    options.CustomizeProblemDetails = context =>
+    {
+        context.ProblemDetails.Instance =
+            $"{context.HttpContext.Request.Method} {context.HttpContext.Request.Path}";
+    };
+});
 
 // Minimal APIs / Swagger
 builder.Services.AddEndpointsApiExplorer();
@@ -61,6 +71,8 @@ if (app.Environment.IsDevelopment())
         c.SwaggerEndpoint("/openapi/v1.json", "SolutionArchitect.CashFlow.Consolidate.Api");
     });
 }
+
+app.UseDomainExceptionHandling();
 
 app.MapAppEndpoints();
 

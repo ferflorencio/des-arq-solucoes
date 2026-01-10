@@ -8,14 +8,23 @@ namespace SolutionArchitect.CashFlow.ApiService.Endpoints;
 public static class DefaultEndpoints
 {
     public static void MapAppEndpoints(this IEndpointRouteBuilder app)
-        => app.MapPost("api/v1/cashflow", static async ([FromServices] IMediator mediator, [FromBody] ExecuteCashFlowOperationRequest request, CancellationToken cancellationToken) => await mediator.Send(request, cancellationToken))
-            .WithName("CashFlow")
-            .WithDisplayName("CashFlow")
-            .WithTags("CashFlow")
-            .Produces<ExecuteCashFlowOperationResponse>(200)
-            .ProducesProblem(400)
-            .ProducesProblem(404)
-            .ProducesProblem(409)
-            .ProducesProblem(422)
-            .ProducesProblem(500);
+        => app.MapPost(
+            "api/v1/cashflow",
+            static async (
+                [FromServices] IMediator mediator,
+                [FromBody] ExecuteCashFlowOperationRequest request,
+                CancellationToken cancellationToken) =>
+            {
+                var response = await mediator.Send(request, cancellationToken);
+                return Results.Ok(response);
+            })
+        .WithName("CashFlow")
+        .WithDisplayName("CashFlow")
+        .WithTags("CashFlow")
+        .Produces<ExecuteCashFlowOperationResponse>(StatusCodes.Status200OK)
+        .ProducesProblem(StatusCodes.Status400BadRequest)
+        .ProducesProblem(StatusCodes.Status404NotFound)
+        .ProducesProblem(StatusCodes.Status409Conflict)
+        .ProducesProblem(StatusCodes.Status422UnprocessableEntity)
+        .ProducesProblem(StatusCodes.Status500InternalServerError);
 }

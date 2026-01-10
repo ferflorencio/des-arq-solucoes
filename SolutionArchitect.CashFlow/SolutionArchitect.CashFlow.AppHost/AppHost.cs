@@ -6,7 +6,7 @@ var redis = builder.AddRedis("redis").WithRedisInsight();
 
 var rabbit = builder.AddRabbitMQ("rabbit").WithManagementPlugin();
 
- builder.AddProject<Projects.SolutionArchitect_CashFlow_ApiService>("cashflow-api")
+var cashFlowService = builder.AddProject<Projects.SolutionArchitect_CashFlow_ApiService>("cashflow-api")
     .WithHttpHealthCheck("/health")
     .WithReference(db)
     .WithReference(rabbit)
@@ -29,6 +29,8 @@ builder.AddProject<Projects.SolutionArchitect_CashFlow_Web>("cashflow-web")
     .WithExternalHttpEndpoints()
     .WithHttpHealthCheck("/health")
     .WithReference(consolidateService)
-    .WaitFor(consolidateService);
+    .WithReference(cashFlowService)
+    .WaitFor(consolidateService)
+    .WaitFor(cashFlowService);
 
 builder.Build().Run();

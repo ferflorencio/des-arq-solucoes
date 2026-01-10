@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using SolutionArchitect.CashFlow.Consolidate.Api.Domain.Cache;
+using SolutionArchitect.CashFlow.Consolidate.Api.Shareable.Exceptions;
 using SolutionArchitect.CashFlow.Consolidate.Api.Shareable.Requests;
 using SolutionArchitect.CashFlow.Consolidate.Api.Shareable.Responses;
 
@@ -12,8 +13,9 @@ public sealed class GetDailyConsolidatedCashFlowHandler(ICashFlowCache cache) : 
         var date = new DateTime(request.Year, request.Month, request.Day, 0, 0, 0, DateTimeKind.Utc);
         var balance = await cache.GetAsync(date, cancellationToken);
 
-        return balance is null 
-            ? throw new KeyNotFoundException($"No cashflow found for {date:yyyy-MM-dd}") 
+        return balance is null
+            ? throw new NotFoundException(
+                $"No cashflow found for {date:yyyy-MM-dd}")
             : new GetDailyConsolidatedCashFlowResponse(date, balance);
     }
 }

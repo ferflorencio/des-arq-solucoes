@@ -16,11 +16,17 @@ builder.Services.AddServiceDiscovery();
 builder.Services.AddHttpClient<CashFlowConsolidateClient>(client =>
 {
     var baseUrl =
-        builder.Configuration["services:cashflow-consolidate-api:https:0"];
+        builder.Configuration["services:cashflow-consolidate-api:https:0"]
+        ?? throw new InvalidOperationException("CashFlow Consolidate API endpoint not found");
 
-    if (string.IsNullOrWhiteSpace(baseUrl))
-        throw new InvalidOperationException(
-            "CashFlow Consolidate API endpoint not found");
+    client.BaseAddress = new Uri(baseUrl);
+});
+
+builder.Services.AddHttpClient<CashFlowClient>(client =>
+{
+    var baseUrl =
+        builder.Configuration["services:cashflow-api:https:0"]
+        ?? throw new InvalidOperationException("CashFlow API not found");
 
     client.BaseAddress = new Uri(baseUrl);
 });
