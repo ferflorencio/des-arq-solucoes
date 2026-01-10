@@ -42,7 +42,7 @@ public sealed class CashFlowRepository(MongoDbContext context) : ICashFlowReposi
             catch (MongoWriteException ex)
                 when (ex.WriteError.Category == ServerErrorCategory.DuplicateKey)
             {
-                throw new LockException();
+                throw new LockException("Cashflow updated concurrently");
             }
 
             return;
@@ -61,7 +61,7 @@ public sealed class CashFlowRepository(MongoDbContext context) : ICashFlowReposi
 
         if (result.MatchedCount == 0)
         {
-            throw new LockException();
+            throw new LockException("Cashflow updated concurrently");
         }
     }
 }

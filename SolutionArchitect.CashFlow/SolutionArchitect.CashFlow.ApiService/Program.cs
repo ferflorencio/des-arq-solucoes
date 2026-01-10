@@ -4,6 +4,7 @@ using SolutionArchitect.CashFlow.Api.Domain.Factories;
 using SolutionArchitect.CashFlow.Api.Domain.Handlers;
 using SolutionArchitect.CashFlow.Api.IoC;
 using SolutionArchitect.CashFlow.ApiService.Endpoints;
+using SolutionArchitect.CashFlow.ApiService.Extensions;
 using SolutionArchitect.CashFlow.ServiceDefaults;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,7 +15,6 @@ builder.Services.AddProblemDetails();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<ExecuteCashFlowOperationHandler>());
 builder.Services.AddInfrastructure(builder.Configuration);
-builder.AddRabbitMQClient("rabbit");
 builder.Services.AddMessaging();
 builder.Services.AddCashFlowResilience();
 
@@ -34,7 +34,18 @@ builder.Services.AddOpenApi(c =>
     });
 });
 
+builder.Services.AddProblemDetails(options =>
+{
+    options.CustomizeProblemDetails = context =>
+    {
+        context.ProblemDetails.Instance =
+            $"{context.HttpContext.Request.Method} {context.HttpContext.Request.Path}";
+    };
+});
+
 builder.Services.AddScoped<CashFlowOperationFactory>();
+builder.AddRabbitMQClient("rabbit");
+
 
 var app = builder.Build();
 
@@ -46,8 +57,6 @@ using (var scope = app.Services.CreateScope())
     await indexInitializer.CreateIndexesAsync(CancellationToken.None);
 }
 
-app.UseExceptionHandler();
-
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
@@ -56,6 +65,7 @@ if (app.Environment.IsDevelopment())
         c.SwaggerEndpoint("/openapi/v1.json", "SolutionArchitect.CashFlow.ApiService");
     });
 }
+app.UseDomainExceptionHandling();
 
 app.MapDefaultEndpoints();
 app.MapAppEndpoints();

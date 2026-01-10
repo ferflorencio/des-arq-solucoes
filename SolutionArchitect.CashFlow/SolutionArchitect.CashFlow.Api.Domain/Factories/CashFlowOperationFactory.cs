@@ -1,5 +1,6 @@
 ﻿using SolutionArchitect.CashFlow.Api.Domain.Services;
 using SolutionArchitect.CashFlow.Api.Shareable.Enums;
+using SolutionArchitect.CashFlow.Api.Shareable.Exceptions;
 
 namespace SolutionArchitect.CashFlow.Api.Domain.Factories;
 
@@ -10,6 +11,6 @@ public sealed class CashFlowOperationFactory
         {
             CashFlowOperationType.Credit => new CreditOperation(),
             CashFlowOperationType.Debit => new DebitOperation(),
-            _ => throw new NotSupportedException("Operation type not supported.")
+            _ => throw new InvalidOperationTypeException(operationType.ToString())
         };
 }

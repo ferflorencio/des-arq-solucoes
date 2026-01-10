@@ -12,5 +12,10 @@ public static class DefaultEndpoints
             .WithName("CashFlow")
             .WithDisplayName("CashFlow")
             .WithTags("CashFlow")
-            .Produces<ExecuteCashFlowOperationResponse>(200);
+            .Produces<ExecuteCashFlowOperationResponse>(200)
+            .ProducesProblem(400)
+            .ProducesProblem(404)
+            .ProducesProblem(409)
+            .ProducesProblem(422)
+            .ProducesProblem(500);
 }
