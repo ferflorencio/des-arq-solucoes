@@ -1,24 +1,29 @@
 using SolutionArchitect.CashFlow.ServiceDefaults;
-using SolutionArchitect.CashFlow.Web;
 using SolutionArchitect.CashFlow.Web.Components;
+using SolutionArchitect.CashFlow.Web.Services.Clients;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add service defaults & Aspire client integrations.
 builder.AddServiceDefaults();
-
+builder.Services.AddOutputCache();
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
-builder.Services.AddOutputCache();
+builder.Services.AddServiceDiscovery();
 
-builder.Services.AddHttpClient<WeatherApiClient>(client =>
-    {
-        // This URL uses "https+http://" to indicate HTTPS is preferred over HTTP.
-        // Learn more about service discovery scheme resolution at https://aka.ms/dotnet/sdschemes.
-        client.BaseAddress = new("https+http://apiservice");
-    });
+builder.Services.AddHttpClient<CashFlowConsolidateClient>(client =>
+{
+    var baseUrl =
+        builder.Configuration["services:cashflow-consolidate-api:https:0"];
+
+    if (string.IsNullOrWhiteSpace(baseUrl))
+        throw new InvalidOperationException(
+            "CashFlow Consolidate API endpoint not found");
+
+    client.BaseAddress = new Uri(baseUrl);
+});
 
 var app = builder.Build();
 

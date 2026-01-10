@@ -1,0 +1,60 @@
+﻿@page "/consolidated"
+@rendermode InteractiveServer
+@using SolutionArchitect.CashFlow.Web.Contracts
+@using SolutionArchitect.CashFlow.Web.Services.Clients
+@inject CashFlowConsolidateClient Client
+
+<h3>Consolidado Diário</h3>
+
+<div class="mb-3">
+    <label class="form-label">Data</label>
+    <input type="date"
+           class="form-control"
+           @bind="selectedDate" />
+</div>
+<button class="btn btn-primary" @onclick="SearchAsync">
+    Buscar
+</button>
+
+@if (loading)
+{
+    <p class="mt-3">Carregando...</p>
+}
+else if (result is not null)
+{
+    <div class="alert alert-success mt-3">
+        <p><strong>Data:</strong> @result.Date.ToShortDateString()</p>
+        <p><strong>Balance:</strong> @result.Balance</p>
+    </div>
+}
+else if (searched)
+{
+    <div class="alert alert-warning mt-3">
+        Nenhum consolidado encontrado para a data informada.
+    </div>
+}
+
+@code {
+    private DateTime selectedDate = DateTime.Today;
+    private ConsolidatedCashFlowResponse? result;
+    private bool loading;
+    private bool searched;
+
+    private async Task SearchAsync()
+    {
+        loading = true;
+        searched = true;
+        result = null;
+
+        try
+        {
+            result = await Client.GetByDateAsync(
+                selectedDate,
+                CancellationToken.None);
+        }
+        finally
+        {
+            loading = false;
+        }
+    }
+}
