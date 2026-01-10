@@ -20,7 +20,7 @@ public sealed class ExecuteCashFlowOperationHandler(
 
     public async Task<ExecuteCashFlowOperationResponse> Handle(ExecuteCashFlowOperationRequest request, CancellationToken cancellationToken)
     {
-        var today = DateTime.UtcNow.Date;
+        var today = DateTime.Now.Date;
 
         return await _pipeline.ExecuteAsync(
             async token =>

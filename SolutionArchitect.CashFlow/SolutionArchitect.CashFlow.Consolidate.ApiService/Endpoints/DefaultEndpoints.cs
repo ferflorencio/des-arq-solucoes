@@ -15,7 +15,9 @@ public static class DefaultEndpoints
 
                 var response = await mediator.Send(request, cancellationToken);
 
-                return Results.Ok(response);
+                return response is null
+                    ? Results.NotFound()
+                    : Results.Ok(response);
             })
         .WithName("GetDailyCashFlowConsolidated")
         .WithDisplayName("Get Daily CashFlow Consolidated")
