@@ -11,6 +11,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="K6\**" />
+    <EmbeddedResource Remove="K6\**" />
+    <None Remove="K6\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\SolutionArchitect.CashFlow.ApiService\SolutionArchitect.CashFlow.ApiService.csproj" />
     <ProjectReference Include="..\SolutionArchitect.CashFlow.Consolidate.ApiService\SolutionArchitect.CashFlow.Consolidate.ApiService.csproj" />
     <ProjectReference Include="..\SolutionArchitect.CashFlow.FinancialConsolidate.Worker\SolutionArchitect.CashFlow.FinancialConsolidate.Worker.csproj" />
@@ -22,6 +28,7 @@
     <PackageReference Include="Aspire.Hosting.MongoDB" Version="13.1.0" />
     <PackageReference Include="Aspire.Hosting.RabbitMQ" Version="13.1.0" />
     <PackageReference Include="Aspire.Hosting.Redis" Version="13.1.0" />
+    <PackageReference Include="CommunityToolkit.Aspire.Hosting.k6" Version="13.0.0" />
   </ItemGroup>
 
 </Project>

@@ -33,4 +33,30 @@ builder.AddProject<Projects.SolutionArchitect_CashFlow_Web>("cashflow-web")
     .WaitFor(consolidateService)
     .WaitFor(cashFlowService);
 
+var solutionRoot = Path.GetFullPath(
+    Path.Combine(
+        AppContext.BaseDirectory,
+        "..", "..", "..", ".."));
+
+var scriptsPath = Path.Combine(solutionRoot, "Scripts");
+
+var k6 = builder.AddK6("k6")
+    .WithBindMount(scriptsPath, "/scripts", true)
+    .WithScript("/scripts/consolidated-get-load-tests.js")
+    .WithReference(consolidateService)
+    .WithReference(cashFlowService)
+    .WithEnvironment("BASE_URL_CONSOLIDATE", consolidateService.GetEndpoint("http"))
+    .WithEnvironment("BASE_URL_CASHFLOW", cashFlowService.GetEndpoint("http"))
+    .WithEnvironment("K6_WEB_DASHBOARD", "true")
+    .WithEnvironment("K6_WEB_DASHBOARD_EXPORT", "dashboard-report.html")
+    .WithHttpEndpoint(
+        targetPort: 5665,
+        name: "k6-dashboard"
+    )
+    .WithUrlForEndpoint("k6-dashboard", url => url.DisplayText = "K6 Dashboard")
+    .WithK6OtlpEnvironment()
+    .WaitFor(cashFlowService)
+    .WaitFor(consolidateService)
+    .WithExplicitStart();
+
 builder.Build().Run();

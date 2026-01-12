@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using SolutionArchitect.CashFlow.Consolidate.Api.Shareable.Requests;
 using SolutionArchitect.CashFlow.Consolidate.Api.Shareable.Responses;
-using SolutionArchitect.CashFlow.Consolidate.ApiService.Extensions;
 
 namespace SolutionArchitect.CashFlow.Consolidate.ApiService.Endpoints;
 
@@ -14,12 +13,12 @@ public static class DefaultEndpoints
             {
                 var request = new GetDailyConsolidatedCashFlowRequest(year, month, day);
 
-                var response = await mediator.SendQueryOrNotFound(
-                    request,
-                    $"No cashflow found for {year:D4}-{month:D2}-{day:D2}",
-                    cancellationToken);
+                var response = await mediator.Send(request, cancellationToken);
 
-                return Results.Ok(response);
+                return response is null
+                    ? Results.NotFound()
+                    : Results.Ok(response);
+
             })
         .WithName("GetDailyCashFlowConsolidated")
         .WithDisplayName("Get Daily CashFlow Consolidated")
