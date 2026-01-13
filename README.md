@@ -88,6 +88,8 @@ Certifique-se de que os seguintes itens estejam instalados:
 
 git clone https://github.com/ferflorencio/des-arq-solucoes.git
    
+# Ou faça o download do repositorio em caso de bloqueios em computadores empresariais
+
 # 2. Acesse a pasta do projeto:
 
 cd SolutionArchitect.CashFlow
