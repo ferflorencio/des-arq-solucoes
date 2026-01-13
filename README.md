@@ -94,7 +94,7 @@ cd SolutionArchitect.CashFlow
 
 # 3. Execute a aplicação utilizando o Aspire:
 
-dotnet aspire run
+aspire run
 
 # 4. O Aspire será responsável por subir automaticamente:
 
@@ -105,11 +105,16 @@ dotnet aspire run
 > MongoDB
 > Redis
 > RabbitMQ
-> K6 (Teste não executa automaticamente, é necessário rodar a partir do dashboard do ASPIRE)
+> K6
 
 # 5. Acompanhe o status dos serviços, logs e métricas através do Dashboard do Aspire.
 
 # 6. Execute as operações utilizando o FrontEnd do cashflow
+
+# 7. Caso queira executar o Teste com K6 para validar o requisito de consultas por minuto nos relatórios:
+  - clicar no botão "Play" do K6 no dashboard do aspire 
+  - ao aparecer o link "K6 Dashboard"
+  - clicar para conseguir acompanhar a execução do teste de carga.
 ```
 
 ---

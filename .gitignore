@@ -450,3 +450,6 @@ $RECYCLE.BIN/
 /tools
 *.opencover.xml
 /coverageOutput
+
+## Aspire
+.Aspire/
