@@ -69,7 +69,7 @@ A arquitetura favorece a manutenção, testabilidade e evolução do sistema, pe
 
 ---
 
-## ▶️ Como Executar o Projeto Localmente
+## Como Executar o Projeto Localmente
 
 ### Pré-requisitos
 
@@ -98,16 +98,18 @@ dotnet aspire run
 
 # 4. O Aspire será responsável por subir automaticamente:
 
-FrontEnd CashFlow
-API CashFlow
-API CashFlow Consolidate
-Worker CashFlow Consolidate
-MongoDB
-Redis
-RabbitMQ
-K6 (Teste não executa automaticamente, é necessário rodar a partir do dashboard do ASPIRE)
+> FrontEnd CashFlow
+> API CashFlow
+> API CashFlow Consolidate
+> Worker CashFlow Consolidate
+> MongoDB
+> Redis
+> RabbitMQ
+> K6 (Teste não executa automaticamente, é necessário rodar a partir do dashboard do ASPIRE)
 
 # 5. Acompanhe o status dos serviços, logs e métricas através do Dashboard do Aspire.
+
+# 6. Execute as operações utilizando o FrontEnd do cashflow
 ```
 
 ---
