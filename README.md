@@ -86,7 +86,7 @@ Certifique-se de que os seguintes itens estejam instalados:
 ```sh
 # 1. Clone o repositório:
 
-git clone <https://github.com/ferflorencio/des-arq-solucoes.git> 
+git clone https://github.com/ferflorencio/des-arq-solucoes.git
    
 # 2. Acesse a pasta do projeto:
 
@@ -112,9 +112,9 @@ aspire run
 # 6. Execute as operações utilizando o FrontEnd do cashflow
 
 # 7. Caso queira executar o Teste com K6 para validar o requisito de consultas por minuto nos relatórios:
-  - clicar no botão "Play" do K6 no dashboard do aspire 
-  - ao aparecer o link "K6 Dashboard"
-  - clicar para conseguir acompanhar a execução do teste de carga.
+  ## clicar no botão "Play" do K6 no dashboard do aspire 
+  ## ao aparecer o link "K6 Dashboard"
+  ## clicar para conseguir acompanhar a execução do teste de carga.
 ```
 
 ---
