@@ -22,13 +22,13 @@ A aplicação centraliza as movimentações financeiras e disponibiliza uma API 
 
 ## Visão Geral da Arquitetura
 
-A aplicação foi projetada seguindo princípios de **baixo acoplamento**, **alta coesão** e **separação de responsabilidades**, utilizando práticas modernas do ecossistema .NET.
+A aplicação foi projetada seguindo princípios de **baixo acoplamento** e **separação de responsabilidades**, utilizando práticas do ecossistema .NET.
 
 A arquitetura favorece a manutenção, testabilidade e evolução do sistema, permitindo a introdução de novos fluxos e integrações sem impacto direto nas regras de negócio.
 
 
 > **Diagrama de Arquitetura**  
-> ![Diagrama de topologia](./Docs/ImgDocs/topology-diagram-target.png)
+> ![Diagrama de topologia](./Docs/ImgDocs/developed-architecture.png)
 
 ### Características Arquiteturais
 
