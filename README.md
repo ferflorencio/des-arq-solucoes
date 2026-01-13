@@ -28,8 +28,7 @@ A arquitetura favorece a manutenção, testabilidade e evolução do sistema, pe
 
 
 > **Diagrama de Arquitetura**  
-> Um diagrama detalhado da arquitetura será adicionado nesta seção.  
-> ![Diagrama de topologia](../Docs/ImgDocs/topology-diagram-target.png)
+> ![Diagrama de topologia](./Docs/ImgDocs/topology-diagram-target.png)
 
 ### Características Arquiteturais
 
