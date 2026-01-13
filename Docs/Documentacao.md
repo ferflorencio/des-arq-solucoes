@@ -163,7 +163,7 @@ title Diagrama de Contêiner - Interface Channel (Frontend)
 ```
 ### 4.1.3 Diagramas de Topologia
 
-![Diagrama de topologia](./ImgDocs/topology-diagram.png)
+![Diagrama de topologia](./ImgDocs/topology-diagram-target.png)
 ---
 
 ## 5. Requisitos
