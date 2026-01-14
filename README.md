@@ -2,7 +2,7 @@
 
 ## Visão Geral
 
-O **SolutionArchitect.CashFlow** é uma aplicação backend desenvolvida para **controlar o fluxo de caixa diário** de um comércio, permitindo o registro de **lançamentos financeiros (débitos e créditos)** e a **consolidação diária do saldo**.
+O **SolutionArchitect.CashFlow** é uma aplicação Front e Backend desenvolvida para **controlar o fluxo de caixa diário** de um comerciante, permitindo o registro de **lançamentos financeiros (débitos e créditos)** e a **consolidação diária do saldo**.
 
 A aplicação centraliza as movimentações financeiras e disponibiliza uma API para consulta do saldo consolidado por dia, servindo como base para relatórios e análises financeiras internas.
 
@@ -38,9 +38,11 @@ A arquitetura favorece a manutenção, testabilidade e evolução do sistema, pe
   - Application
   - Infrastructure
 - Persistência orientada a documentos
-- Uso de cache para otimização de leitura
-- Mensageria para desacoplamento e extensibilidade
+- Uso de cache para otimização de Consultas
+- Mensageria para desacoplamento
 - Infraestrutura local orquestrada via **.NET Aspire**
+- Monorepo para aproveitar totalmente os recursos do **.NET Aspire**
+- Frontend utilizando tecnologia **Microsoft Blazor**
 
 ---
 
@@ -54,10 +56,10 @@ A arquitetura favorece a manutenção, testabilidade e evolução do sistema, pe
 
 ### Persistência
 - **MongoDB**  
-  Armazenamento dos lançamentos financeiros e dados consolidados.
+  Armazenamento dos lançamentos financeiros.
 
 - **Redis**  
-  Cache para otimizar consultas de leitura do consolidado diário.
+  Cache para otimizar consultas do consolidado diário.
 
 ### Mensageria
 - **RabbitMQ**  
@@ -75,20 +77,19 @@ A arquitetura favorece a manutenção, testabilidade e evolução do sistema, pe
 
 Certifique-se de que os seguintes itens estejam instalados:
 
-- **.NET SDK 10**
-- **Docker**
-- **.NET Aspire**
+- **.NET SDK 10** ([Download](https://dotnet.microsoft.com/en-us/download/dotnet/10.0))
+- **Docker** ([Download](https://docs.docker.com/get-started/get-docker/))
+- **.NET Aspire** ([Download](https://aspire.dev/pt-br/get-started/install-cli/))
 
 ---
 
 ### Executando a aplicação
 
 ```sh
-# 1. Clone o repositório:
+# 1. Clone o repositório:  
+# Ou faça o download do repositorio em caso de bloqueios em computadores empresariais
 
 git clone https://github.com/ferflorencio/des-arq-solucoes.git
-   
-# Ou faça o download do repositorio em caso de bloqueios em computadores empresariais
 
 # 2. Acesse a pasta do projeto:
 
