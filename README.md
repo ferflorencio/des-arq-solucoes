@@ -28,7 +28,7 @@ A arquitetura favorece a manutenção, testabilidade e evolução do sistema, pe
 
 
 > **Diagrama de Arquitetura**  
-> ![Diagrama de topologia](./Docs/ImgDocs/developed-architecture.png)
+> ![Diagrama de topologia](./documents/ImgDocs/developed-architecture.png)
 
 ### Características Arquiteturais
 
@@ -119,4 +119,4 @@ aspire run
 
 ### DAS (Documento de arquitetura de solução)
 
-Para acessar a documentação de arquitetura, visite o link: [DAS](https://github.com/ferflorencio/des-arq-solucoes/blob/main/docs/architecture-solution-document.md)
+Para acessar a documentação de arquitetura, visite o link: [DAS](https://github.com/ferflorencio/des-arq-solucoes/blob/main/documents/architecture-solution-document.md)
