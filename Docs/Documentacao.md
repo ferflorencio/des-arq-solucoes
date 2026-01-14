@@ -211,60 +211,92 @@ As principais decisões arquiteturais serão documentadas utilizando o padrão *
 
 ## 8. ADRs
 
-# ADR-001 — Escolha da AWS como Provedor de Nuvem Principal
+### ADR 001: Escolha do Redis como Banco de Dados em Cache para as Consultas do Consolidado
 
-## Status
+#### Status
 Aceito
 
-## Contexto
+### Data
+01/2026
 
-Durante a fase de planejamento da arquitetura do sistema **CashFlow**, foram desenvolvidos dois diagramas de arquitetura comparativos: um utilizando serviços da **Amazon Web Services (AWS)** e outro utilizando **Microsoft Azure** na plataforma cloudcraft, que ajuda a fazer estimativas de preço na cloud em ambas plataformas.
+---
 
-Ambas as soluções foram projetadas para suportar os **mesmos requisitos funcionais e não funcionais**, garantindo equivalência em termos de capacidade de processamento, armazenamento, disponibilidade e escalabilidade.
+### Contexto
 
-### Arquitetura AWS Proposta
+Durante o desenho da arquitetura do projeto **CashFlow**, foram definidos requisitos não funcionais relacionados a desempenho e resiliência do serviço responsável pela consolidação diária de dados financeiros. Em especial, destacam-se os seguintes requisitos:
 
-- **Computação:** EKS (Elastic Kubernetes Service) para orquestração de containers  
-- **API Gateway:** Gerenciamento e roteamento de APIs  
-- **CDN:** CloudFront para distribuição de conteúdo  
-- **Banco de Dados NoSQL:** DynamoDB para dados de CashFlow e Financial  
-- **Cache:** ElastiCache (Redis) para otimização de performance  
-- **Mensageria:** SQS (Simple Queue Service) para filas AMQP  
+| Código  | Descrição                                                                 |
+|--------|---------------------------------------------------------------------------|
+| RNF-02 | O serviço de consolidação diária deve suportar picos de até **50 requisições por segundo** |
+| RNF-03 | A taxa máxima de perda de requisições durante picos deve ser de **5%**     |
 
-### Arquitetura Azure Proposta
+O sistema CashFlow adota uma arquitetura baseada em **microserviços**, sendo que o **serviço de consolidados** é responsável por expor consultas frequentes a dados já processados e agregados. Essas consultas possuem padrão de leitura intensiva e são altamente sensíveis à latência, especialmente durante períodos de pico de acesso.
 
-- **Computação:** AKS (Azure Kubernetes Service) para orquestração de containers  
-- **API Management:** Gerenciamento e roteamento de APIs  
-- **Banco de Dados NoSQL:** Cosmos DB para dados financeiros e consolidação  
-- **Cache:** Azure Cache for Redis  
-- **Mensageria:** Service Bus para filas e mensageria  
+Para atender a esses requisitos não funcionais, identificou-se a necessidade de introduzir um mecanismo de **cache em memória**, capaz de reduzir a carga sobre os bancos de dados primários e garantir tempos de resposta consistentes sob alta concorrência.
 
-Ambas as arquiteturas foram **dimensionadas para atender os mesmos volumes de requisições, armazenamento e processamento**.  
-Após o dimensionamento, foram realizadas **estimativas detalhadas de custos mensais** para cada provedor.
+---
 
-## Decisão
+### Requisitos Técnicos
 
-Decidimos utilizar a **Amazon Web Services (AWS)** como o **provedor de nuvem principal** para o sistema de CashFlow.
+Os requisitos técnicos considerados para a solução de cache foram:
 
-## Justificativa
+- **Baixa latência** como requisito crítico, devido aos limites impostos pelos RNFs.
+- **Alta capacidade de concorrência**, suportando múltiplas requisições simultâneas.
+- **Escalabilidade horizontal**, permitindo crescimento do sistema sem degradação significativa de performance.
+- **Persistência dos dados em cache sem expiração automática**, uma vez que os consolidados diários devem permanecer disponíveis para consulta contínua.
+- **Modelo simples de dados**, baseado em chave e valor, sem necessidade de estruturas complexas.
 
-### 1. Custo-Benefício
+---
 
-A análise comparativa de custos mensais revelou que a solução em AWS apresenta **custos operacionais significativamente menores** quando comparada à Azure para a carga de trabalho específica do sistema.
+### Alternativas Avaliadas
 
-Os principais fatores de economia identificados foram:
+As seguintes alternativas foram consideradas antes da decisão final:
 
-- Precificação mais competitiva do **DynamoDB** em comparação ao **Cosmos DB**
-- Custos de **transferência de dados** mais favoráveis
-- Modelo de precificação do **ElastiCache** mais aderente ao padrão de uso do sistema
+#### Banco de Dados Relacional
+Embora bancos relacionais sejam adequados para persistência e consistência transacional, eles não são otimizados para cenários de leitura intensiva com baixa latência e alta concorrência. O uso do banco relacional como mecanismo de cache implicaria maior sobrecarga de I/O, locks e competição por recursos, podendo comprometer o atendimento aos requisitos de desempenho.
 
-**Estimativa de Custo de infra mensal - Azure**
-![Diagrama de topologia](./ImgDocs/costs-1.png)
+#### MongoDB
+O MongoDB oferece flexibilidade de esquema e boa performance em determinados cenários, porém continua sendo um banco orientado a persistência em disco. Mesmo com índices, o custo de acesso e a latência são superiores quando comparados a soluções de cache em memória, especialmente sob cargas elevadas e padrões de acesso repetitivos.
 
-**Estimativa de Custo de infra mensal - AWS**
-![Diagrama de topologia](./ImgDocs/costs-2.png)
+Ambas as alternativas não atendiam de forma ideal aos requisitos de latência e throughput exigidos pelo serviço de consolidados.
 
-## 9. Referências
+---
+
+### Decisão
+
+Foi decidido utilizar o **Redis** como banco de dados em cache para as consultas do consolidado diário.
+
+O Redis foi escolhido por ser uma solução de cache em memória amplamente adotada, com excelente desempenho para operações de leitura, suporte nativo a alta concorrência e capacidade de escalar horizontalmente. Sua arquitetura é especialmente adequada para cenários de acesso frequente a dados já processados, como é o caso dos consolidados diários.
+
+A implementação utiliza:
+- Redis executando em **container**, integrado ao ambiente de desenvolvimento via **.NET Aspire**.
+- Integração com a aplicação através da abstração **IDistributedCache**, que utiliza internamente a biblioteca **StackExchange.Redis**.
+
+---
+
+### Consequências
+
+#### Benefícios
+
+- Atendimento aos requisitos não funcionais definidos para o projeto.
+- Redução significativa da latência nas consultas de consolidados diários.
+- Capacidade de suportar picos de carga conforme especificado.
+- Validação prática da decisão por meio de **testes de carga com K6**, incluídos na solução, que comprovam o atendimento aos cenários propostos.
+
+#### Custos e Riscos
+
+- Introdução de um novo componente de infraestrutura, aumentando a complexidade operacional.
+- Necessidade de cuidados com estratégias de invalidação e consistência dos dados em cache, especialmente em cenários futuros de evolução da arquitetura.
+
+---
+
+### Referências
+
+- Testes de carga com K6 disponíveis no repositório da solução.
+- Requisitos não funcionais definidos para o projeto CashFlow.
+---
+
+## 9. Referências para construção do DAS
 
 - RabbitMQ Documentation  
   https://www.rabbitmq.com/docs
