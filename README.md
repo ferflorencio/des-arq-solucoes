@@ -2,7 +2,7 @@
 
 ## Visão Geral
 
-O **SolutionArchitect.CashFlow** é uma aplicação Front e Backend desenvolvida para **controlar o fluxo de caixa diário** de um comerciante, permitindo o registro de **lançamentos financeiros (débitos e créditos)** e a **consolidação diária do saldo**.
+O **SolutionArchitect.CashFlow** é uma aplicação desenvolvida para **controlar o fluxo de caixa diário** de um comerciante, permitindo o registro de **lançamentos financeiros (débitos e créditos)** e a **consolidação diária do saldo**.
 
 A aplicação centraliza as movimentações financeiras e disponibiliza uma API para consulta do saldo consolidado por dia, servindo como base para relatórios e análises financeiras internas.
 
@@ -42,7 +42,6 @@ A arquitetura favorece a manutenção, testabilidade e evolução do sistema, pe
 - Mensageria para desacoplamento
 - Infraestrutura local orquestrada via **.NET Aspire**
 - Monorepo para aproveitar totalmente os recursos do **.NET Aspire**
-- Frontend utilizando tecnologia **Microsoft Blazor**
 
 ---
 
@@ -50,9 +49,6 @@ A arquitetura favorece a manutenção, testabilidade e evolução do sistema, pe
 
 ### Backend
 - **.NET 10**
-
-### FrontEnd
-- **.NET 10 + Blazor**
 
 ### Persistência
 - **MongoDB**  
@@ -101,7 +97,6 @@ aspire run
 
 # 4. O Aspire será responsável por subir automaticamente:
 
-> FrontEnd CashFlow
 > API CashFlow
 > API CashFlow Consolidate
 > Worker CashFlow Consolidate
@@ -124,4 +119,4 @@ aspire run
 
 ### DAS (Documento de arquitetura de solução)
 
-Para acessar a documentação de arquitetura, visite o link: [DAS](https://github.com/ferflorencio/des-arq-solucoes/blob/main/Docs/Documentacao.md)
+Para acessar a documentação de arquitetura, visite o link: [DAS](https://github.com/ferflorencio/des-arq-solucoes/blob/main/docs/architecture-solution-document.md)

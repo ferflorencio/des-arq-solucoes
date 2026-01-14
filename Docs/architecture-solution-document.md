@@ -48,18 +48,14 @@ A solução tem como finalidade permitir que comerciantes realizem o controle di
 
 ## 3. Capacidades de Negócio
 
-### 3.1 Interface Channel
-
-Capacidade de fornecer uma interface visual para que os usuários possam acessar a plataforma e executar as operações permitidas de forma simples e intuitiva.
-
-### 3.2 Cash Flow
+### 3.1 Cash Flow
 
 Capacidade responsável pelo registro e manutenção dos lançamentos financeiros, contemplando:
 - Débitos
 - Créditos
 - Persistência dos dados de caixa
 
-### 3.3 Finance Consolidate
+### 3.2 Finance Consolidate
 
 Capacidade responsável por:
 - Consolidação diária das operações de caixa
