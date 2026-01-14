@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SolutionArchitect.CashFlow.Api.Application\SolutionArchitect.CashFlow.Api.Application.csproj" />
+    <ProjectReference Include="..\SolutionArchitect.CashFlow.Api.Data\SolutionArchitect.CashFlow.Api.Data.csproj" />
+    <ProjectReference Include="..\SolutionArchitect.CashFlow.Api.IoC\SolutionArchitect.CashFlow.Api.IoC.csproj" />
+    <ProjectReference Include="..\SolutionArchitect.CashFlow.Api.Shareable\SolutionArchitect.CashFlow.Api.Shareable.csproj" />
+    <ProjectReference Include="..\SolutionArchitect.CashFlow.ServiceDefaults\SolutionArchitect.CashFlow.ServiceDefaults.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspire.RabbitMQ.Client" Version="13.1.0" />
+    <PackageReference Include="MediatR" Version="14.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.1" />
+    <PackageReference Include="MongoDB.Driver" Version="3.5.2" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="10.1.0" />
+  </ItemGroup>
+
+</Project>

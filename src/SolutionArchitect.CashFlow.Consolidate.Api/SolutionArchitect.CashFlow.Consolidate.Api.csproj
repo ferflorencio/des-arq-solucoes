@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspire.StackExchange.Redis.DistributedCaching" Version="13.1.0" />
+    <PackageReference Include="MediatR" Version="14.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="10.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SolutionArchitect.CashFlow.Consolidate.Api.Application\SolutionArchitect.CashFlow.Consolidate.Api.Application.csproj" />
+    <ProjectReference Include="..\SolutionArchitect.CashFlow.Consolidate.Api.Data\SolutionArchitect.CashFlow.Consolidate.Api.Data.csproj" />
+    <ProjectReference Include="..\SolutionArchitect.CashFlow.Consolidate.Api.Shareable\SolutionArchitect.CashFlow.Consolidate.Api.Shareable.csproj" />
+    <ProjectReference Include="..\SolutionArchitect.CashFlow.ServiceDefaults\SolutionArchitect.CashFlow.ServiceDefaults.csproj" />
+  </ItemGroup>
+
+</Project>
