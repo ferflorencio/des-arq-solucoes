@@ -210,9 +210,83 @@ A implementação utiliza:
 - Necessidade de garantir consistência eventual entre lançamentos e consolidados.
 - Monitoramento contínuo dos serviços para atender aos SLAs definidos.
 
-------------------------------------------------------------------------------
+---
 
-## 8. Referências para construção do DAS
+## 8. Possíveis Evoluções Arquiteturais
+
+Esta seção descreve possíveis evoluções arquiteturais e sistêmicas da solução proposta. As evoluções aqui apresentadas não foram implementadas na versão atual devido ao escopo e ao tempo do desafio, porém foram consideradas durante o desenho da arquitetura, demonstrando a capacidade da solução de evoluir de forma escalável, flexível e alinhada aos requisitos de negócio futuros.
+
+
+
+### 8.1 Escalonamento da Solução: Suporte a Múltiplos Usuários e Múltiplos Comércios
+
+Atualmente, a solução foi desenhada considerando o cenário de **um único comerciante** responsável pelo controle de seus lançamentos de débito e crédito. Uma possível evolução natural do sistema seria a adaptação para um modelo **multiusuário e multicomércio**.
+
+Nesse cenário, seria necessário introduzir um **módulo de controle de usuários e permissões**, permitindo que:
+
+- Um usuário possa estar associado a **um ou mais comércios**;
+- Um comércio possa ter **múltiplos usuários com acesso autorizado**;
+- Os lançamentos de débito e crédito sejam sempre vinculados a um comércio específico;
+- O acesso aos relatórios consolidados seja restrito apenas aos comércios associados ao usuário autenticado.
+
+Essa modelagem permitiria atender cenários mais complexos, como:
+- Escritórios contábeis gerenciando múltiplos comércios;
+- Empresas com múltiplas filiais;
+- Diferentes perfis de usuários (operacional, gestor, auditor).
+
+Do ponto de vista arquitetural, essa evolução exigiria:
+- Criação de um domínio de **Identidade e Acesso**;
+- Relacionamento explícito entre **Usuários ↔ Comércios ↔ Lançamentos**;
+- Garantia de isolamento lógico dos dados entre diferentes comércios (multi-tenancy).
+
+---
+
+### 8.2 Evolução do Cashflow API para um Modelo Orientado a Eventos
+
+Na arquitetura atual, o **Cashflow API** é responsável por:
+- Receber lançamentos de débito e crédito;
+- Calcular o consolidado diário;
+- Persistir os dados no MongoDB;
+- Publicar o resultado consolidado no RabbitMQ.
+
+Uma evolução relevante seria transformar o Cashflow API em uma **porta de entrada exclusivamente responsável pela validação e aceitação dos lançamentos**, adotando um modelo ainda mais orientado a eventos.
+
+Nesse novo cenário:
+- O Cashflow API validaria o payload do lançamento (débitos/créditos);
+- Após validação, o lançamento seria publicado no RabbitMQ;
+- Um **worker de consolidação** passaria a ser responsável por:
+  - Persistir os lançamentos no MongoDB;
+  - Executar o cálculo do consolidado diário;
+  - Armazenar o resultado consolidado no Redis.
+
+Essa mudança traria benefícios importantes:
+- Redução da responsabilidade do Cashflow API;
+- Eliminação da necessidade de controle de concorrência no API síncrono;
+- Garantia de integridade dos dados através de processamento sequencial e controlado no worker;
+- Maior aderência aos princípios de **Event-Driven Architecture** e **Single Responsibility Principle**.
+
+Além disso, essa abordagem fortalece os requisitos não funcionais do sistema, como resiliência e escalabilidade, pois desacopla completamente o recebimento de lançamentos do processamento e consolidação dos dados.
+
+---
+
+### 8.3 Evoluções em Nível Sistêmico e Reutilização de Componentes
+
+A solução foi desenvolvida utilizando **.NET Aspire**, explorando seus recursos de orquestração local, integração entre componentes e service discovery. No entanto, cada aplicação é responsável por suas próprias integrações com infraestrutura e contratos, o que resulta em algumas duplicações de código, como:
+
+- Configurações de acesso a bancos de dados;
+- DTOs e contratos compartilhados entre serviços;
+- Modelos de mensagens utilizados no RabbitMQ.
+
+Uma evolução natural da arquitetura seria a criação de **projetos de Class Library compartilhados** que podem virar pacotes publicados e consumidos pelas soluções, contendo:
+- Contratos e DTOs comuns;
+- Abstrações de integração com infraestrutura;
+- Modelos de eventos e mensagens.
+
+Esse modelo reduz a duplicação de código, evita divergências de contratos entre serviços e melhora a manutenibilidade da solução e contribui diretamente para a escalabilidade organizacional do projeto, facilitando a inclusão de novos serviços, equipes e domínios sem comprometer a consistência da solução.
+
+---
+
+## 9. Referências para construção do DAS
 
 - RabbitMQ Documentation  
   https://www.rabbitmq.com/docs
