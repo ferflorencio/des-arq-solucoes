@@ -236,7 +236,7 @@ Essa modelagem permitiria atender cenários mais complexos, como:
 
 Do ponto de vista arquitetural, essa evolução exigiria:
 - Criação de um domínio de **Identidade e Acesso**;
-- Relacionamento explícito entre **Usuários ↔ Comércios ↔ Lançamentos**;
+- Relacionamento entre **Usuários, Comércios e Lançamentos**;
 - Garantia de isolamento lógico dos dados entre diferentes comércios (multi-tenancy).
 
 ---
