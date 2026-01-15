@@ -27,8 +27,8 @@ A aplicação foi projetada seguindo princípios de **baixo acoplamento** e **se
 A arquitetura favorece a manutenção, testabilidade e evolução do sistema, permitindo a introdução de novos fluxos e integrações sem impacto direto nas regras de negócio.
 
 
-> **Diagrama de Arquitetura**  
-> ![Diagrama de topologia](./documents/ImgDocs/developed-architecture.png)
+> **Diagrama da Solução Desenvolvida**  
+> ![Diagrama de topologia](./documents/ImgDocs/arq-desenvolvimento.png)
 
 ### Características Arquiteturais
 
