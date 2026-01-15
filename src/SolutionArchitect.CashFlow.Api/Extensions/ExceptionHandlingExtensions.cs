@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SolutionArchitect.CashFlow.Api.Shareable.Exceptions;
 
-namespace SolutionArchitect.CashFlow.ApiService.Extensions;
+namespace SolutionArchitect.CashFlow.Api.Extensions;
 
 public static class ExceptionHandlingExtensions
 {

@@ -3,10 +3,10 @@ using SolutionArchitect.CashFlow.Api.Application.Config;
 using SolutionArchitect.CashFlow.Api.Application.Factories;
 using SolutionArchitect.CashFlow.Api.Application.Handlers;
 using SolutionArchitect.CashFlow.Api.IoC;
-using SolutionArchitect.CashFlow.ApiService.Extensions;
 using SolutionArchitect.CashFlow.ServiceDefaults;
 using System.Text.Json.Serialization;
 using SolutionArchitect.CashFlow.Api.Endpoints;
+using SolutionArchitect.CashFlow.Api.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,7 +26,7 @@ builder.Services.AddOpenApi(c =>
         document.Servers = [];
         document.Info = new()
         {
-            Title = "SolutionArchitect.CashFlow.ApiService",
+            Title = "SolutionArchitect.CashFlow.Api",
             Version = "v1",
             Description = "Aplicação Teste de Arquitetura de Soluções - CashFlow",
         };
@@ -69,7 +69,7 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
     app.UseSwaggerUI(c => 
     {
-        c.SwaggerEndpoint("/openapi/v1.json", "SolutionArchitect.CashFlow.ApiService");
+        c.SwaggerEndpoint("/openapi/v1.json", "SolutionArchitect.CashFlow.Api");
     });
 }
 app.UseDomainExceptionHandling();

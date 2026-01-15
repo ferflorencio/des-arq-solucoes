@@ -2,7 +2,6 @@ using SolutionArchitect.CashFlow.Consolidate.Api.Application.Cache;
 using SolutionArchitect.CashFlow.Consolidate.Api.Application.Handlers;
 using SolutionArchitect.CashFlow.Consolidate.Api.Data.Cache;
 using SolutionArchitect.CashFlow.Consolidate.Api.Endpoints;
-using SolutionArchitect.CashFlow.Consolidate.ApiService.Extensions;
 using SolutionArchitect.CashFlow.ServiceDefaults;
 using StackExchange.Redis;
 
@@ -40,7 +39,7 @@ builder.Services.AddOpenApi(c =>
         document.Servers = [];
         document.Info = new()
         {
-            Title = "SolutionArchitect.CashFlow.Consolidate.ApiService",
+            Title = "SolutionArchitect.CashFlow.Consolidate.Api",
             Version = "v1",
             Description = "Aplicação Teste de Arquitetura de Soluções - CashFlow Consolidate",
         };
@@ -65,8 +64,6 @@ if (app.Environment.IsDevelopment())
         c.SwaggerEndpoint("/openapi/v1.json", "SolutionArchitect.CashFlow.Consolidate.Api");
     });
 }
-
-app.UseApiExceptionHandling();
 
 app.MapAppEndpoints();
 
