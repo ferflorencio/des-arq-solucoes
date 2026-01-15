@@ -3,10 +3,10 @@ using SolutionArchitect.CashFlow.Api.Application.Config;
 using SolutionArchitect.CashFlow.Api.Application.Factories;
 using SolutionArchitect.CashFlow.Api.Application.Handlers;
 using SolutionArchitect.CashFlow.Api.IoC;
-using SolutionArchitect.CashFlow.ApiService.Endpoints;
 using SolutionArchitect.CashFlow.ApiService.Extensions;
 using SolutionArchitect.CashFlow.ServiceDefaults;
 using System.Text.Json.Serialization;
+using SolutionArchitect.CashFlow.Api.Endpoints;
 
 var builder = WebApplication.CreateBuilder(args);
 

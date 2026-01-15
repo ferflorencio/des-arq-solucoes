@@ -1,20 +1,20 @@
 <Solution>
   <Folder Name="/SolutionArchitect.CashFlow.Api/">
-    <Project Path="src/SolutionArchitect.CashFlow.Api.Data/SolutionArchitect.CashFlow.Api.Data.csproj" />
     <Project Path="src/SolutionArchitect.CashFlow.Api.Application/SolutionArchitect.CashFlow.Api.Application.csproj" />
+    <Project Path="src/SolutionArchitect.CashFlow.Api.Data/SolutionArchitect.CashFlow.Api.Data.csproj" />
     <Project Path="src/SolutionArchitect.CashFlow.Api.IoC/SolutionArchitect.CashFlow.Api.IoC.csproj" />
     <Project Path="src/SolutionArchitect.CashFlow.Api.Shareable/SolutionArchitect.CashFlow.Api.Shareable.csproj" />
     <Project Path="src/SolutionArchitect.CashFlow.Api/SolutionArchitect.CashFlow.Api.csproj" />
   </Folder>
   <Folder Name="/SolutionArchitect.CashFlow.Consolidate.Api/">
-    <Project Path="src/SolutionArchitect.CashFlow.Consolidate.Api.Data/SolutionArchitect.CashFlow.Consolidate.Api.Data.csproj" />
     <Project Path="src/SolutionArchitect.CashFlow.Consolidate.Api.Application/SolutionArchitect.CashFlow.Consolidate.Api.Application.csproj" />
+    <Project Path="src/SolutionArchitect.CashFlow.Consolidate.Api.Data/SolutionArchitect.CashFlow.Consolidate.Api.Data.csproj" />
     <Project Path="src/SolutionArchitect.CashFlow.Consolidate.Api.Shareable/SolutionArchitect.CashFlow.Consolidate.Api.Shareable.csproj" />
     <Project Path="src/SolutionArchitect.CashFlow.Consolidate.Api/SolutionArchitect.CashFlow.Consolidate.Api.csproj" />
   </Folder>
   <Folder Name="/SolutionArchitect.CashFlow.Consolidate.Worker/">
-    <Project Path="src/SolutionArchitect.CashFlow.Consolidate.Worker.Data/SolutionArchitect.CashFlow.Consolidate.Worker.Data.csproj" />
     <Project Path="src/SolutionArchitect.CashFlow.Consolidate.Worker.Application/SolutionArchitect.CashFlow.Consolidate.Worker.Application.csproj" />
+    <Project Path="src/SolutionArchitect.CashFlow.Consolidate.Worker.Data/SolutionArchitect.CashFlow.Consolidate.Worker.Data.csproj" />
     <Project Path="src/SolutionArchitect.CashFlow.Consolidate.Worker/SolutionArchitect.CashFlow.Consolidate.Worker.csproj" />
   </Folder>
   <Folder Name="/SolutionArchitect.CashFlow.Shared/">

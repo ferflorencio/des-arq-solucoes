@@ -1,7 +1,7 @@
 using SolutionArchitect.CashFlow.Consolidate.Api.Application.Cache;
 using SolutionArchitect.CashFlow.Consolidate.Api.Application.Handlers;
 using SolutionArchitect.CashFlow.Consolidate.Api.Data.Cache;
-using SolutionArchitect.CashFlow.Consolidate.ApiService.Endpoints;
+using SolutionArchitect.CashFlow.Consolidate.Api.Endpoints;
 using SolutionArchitect.CashFlow.Consolidate.ApiService.Extensions;
 using SolutionArchitect.CashFlow.ServiceDefaults;
 using StackExchange.Redis;
@@ -16,10 +16,8 @@ builder.Services.AddSingleton<IConnectionMultiplexer>(sp =>
         ?? throw new InvalidOperationException(
             "Redis connection string not found")));
 
-// Cache abstraction
 builder.Services.AddScoped<ICashFlowCache, RedisConsolidateCache>();
 
-// MediatR
 builder.Services.AddMediatR(cfg =>
     cfg.RegisterServicesFromAssemblyContaining<
         GetDailyConsolidatedCashFlowHandler>());
@@ -33,7 +31,6 @@ builder.Services.AddProblemDetails(options =>
     };
 });
 
-// Minimal APIs / Swagger
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddOpenApi(c =>
@@ -52,17 +49,14 @@ builder.Services.AddOpenApi(c =>
     });
 });
 
-// Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
 
 app.MapDefaultEndpoints();
 
-// Configure the HTTP request pipeline.
+
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();

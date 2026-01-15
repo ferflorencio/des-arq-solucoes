@@ -1,4 +1,6 @@
 var builder = DistributedApplication.CreateBuilder(args);
+var solutionRoot = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "..", ".."));
+var scriptsK6Path = Path.Combine(solutionRoot, "tests", "k6");
 
 var db = builder.AddMongoDB("mongodb").WithDataVolume().WithMongoExpress().AddDatabase("cashflow");
 
@@ -13,6 +15,7 @@ var cashFlowService = builder.AddProject<Projects.SolutionArchitect_CashFlow_Api
     .WaitFor(db)
     .WaitFor(rabbit);
 
+
 builder.AddProject<Projects.SolutionArchitect_CashFlow_Consolidate_Worker>("cashflow-consolidate-worker")
     .WithReference(redis)
     .WithReference(rabbit)
@@ -20,17 +23,12 @@ builder.AddProject<Projects.SolutionArchitect_CashFlow_Consolidate_Worker>("cash
     .WaitFor(redis);
 
 var consolidateService =  builder.AddProject<Projects.SolutionArchitect_CashFlow_Consolidate_Api>("cashflow-consolidate-api")
-    .WithExternalHttpEndpoints()
     .WithHttpHealthCheck("/health")
     .WithReference(redis)
     .WaitFor(redis);
 
-var solutionRoot = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "..", ".."));
-
-var scriptsPath = Path.Combine(solutionRoot, "tests", "k6");
-
 var k6 = builder.AddK6("k6")
-    .WithBindMount(scriptsPath, "/scripts", true)
+    .WithBindMount(scriptsK6Path, "/scripts", true)
     .WithScript("/scripts/consolidated-get-load-tests.js")
     .WithReference(consolidateService)
     .WithReference(cashFlowService)

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using SolutionArchitect.CashFlow.Consolidate.Api.Shareable.Requests;
 using SolutionArchitect.CashFlow.Consolidate.Api.Shareable.Responses;
 
-namespace SolutionArchitect.CashFlow.Consolidate.ApiService.Endpoints;
+namespace SolutionArchitect.CashFlow.Consolidate.Api.Endpoints;
 
 public static class DefaultEndpoints
 {
