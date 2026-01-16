@@ -8,6 +8,8 @@ using SolutionArchitect.CashFlow.Api.Data.Migrations;
 using SolutionArchitect.CashFlow.Api.Data.Repository;
 using SolutionArchitect.CashFlow.Api.Application.Aggregates;
 using SolutionArchitect.CashFlow.Api.Application.Messaging;
+using SolutionArchitect.CashFlow.Api.Application.Factories;
+using SolutionArchitect.CashFlow.Api.Application.Config;
 
 namespace SolutionArchitect.CashFlow.Api.IoC;
 
@@ -36,7 +38,9 @@ public static class DependencyInjection
         });
 
         services.AddSingleton<MongoDbContext>();
+        services.AddScoped<ICashFlowOperationFactory, CashFlowOperationFactory>();
         services.AddScoped<ICashFlowRepository, CashFlowRepository>();
+        services.AddScoped<IResiliencePipelineExecutor, ResiliencePipelineExecutor>();
         services.AddSingleton<MongoDbMigrations>();
 
         return services;

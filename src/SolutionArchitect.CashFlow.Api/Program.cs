@@ -9,15 +9,26 @@ using SolutionArchitect.CashFlow.Api.Endpoints;
 using SolutionArchitect.CashFlow.Api.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
-
 builder.AddServiceDefaults();
+
+builder.Services.AddResiliencePipeline("cashflow-pipeline", b =>
+{
+    b.AddRetry(new RetryStrategyOptions
+    {
+        MaxRetryAttempts = 3,
+        Delay = TimeSpan.FromMilliseconds(50),
+        BackoffType = DelayBackoffType.Exponential,
+        UseJitter = true,
+        ShouldHandle = ex => true
+    });
+});
+
 
 builder.Services.AddProblemDetails();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<ExecuteCashFlowOperationHandler>());
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddMessaging();
-builder.Services.AddCashFlowResilience();
 
 builder.Services.AddOpenApi(c =>
 {
@@ -52,7 +63,6 @@ builder.Services.AddProblemDetails(options =>
 
 builder.Services.AddScoped<CashFlowOperationFactory>();
 builder.AddRabbitMQClient("rabbit");
-
 
 var app = builder.Build();
 

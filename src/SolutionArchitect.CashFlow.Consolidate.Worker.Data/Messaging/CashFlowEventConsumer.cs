@@ -58,10 +58,7 @@ public sealed class CashFlowEventConsumer(
                     message.NewBalance,
                     cancellationToken);
 
-                logger.LogInformation(
-                    "Mensagem salva no Redis | Date: {Date} | Balance: {Balance}",
-                    message.Date,
-                    message.NewBalance);
+                logger.LogInformation("Message saved on cache | Date: {Date} | Balance: {Balance}", message.Date, message.NewBalance);
 
                 await _channel.BasicAckAsync(
                     ea.DeliveryTag,
@@ -70,7 +67,7 @@ public sealed class CashFlowEventConsumer(
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, "Erro ao processar mensagem do CashFlow");
+                logger.LogError(ex, "Error to process CashFlow Message");
             }
         };
 
@@ -80,6 +77,6 @@ public sealed class CashFlowEventConsumer(
             consumer: consumer,
             cancellationToken: cancellationToken);
 
-        logger.LogInformation("CashFlowEventConsumer está escutando mensagens...");
+        logger.LogInformation("CashFlowEventConsumer is listening messages...");
     }
 }

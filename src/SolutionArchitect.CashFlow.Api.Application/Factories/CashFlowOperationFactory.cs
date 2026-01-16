@@ -4,7 +4,7 @@ using SolutionArchitect.CashFlow.Api.Shareable.Exceptions;
 
 namespace SolutionArchitect.CashFlow.Api.Application.Factories;
 
-public sealed class CashFlowOperationFactory
+public sealed class CashFlowOperationFactory : ICashFlowOperationFactory
 {
     public ICashFlowOperation Create(CashFlowOperationType operationType)
         => operationType switch

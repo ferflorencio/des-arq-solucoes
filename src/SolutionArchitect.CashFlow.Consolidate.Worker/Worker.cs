@@ -10,7 +10,7 @@ public sealed class Worker(
     protected override async Task ExecuteAsync(
         CancellationToken stoppingToken)
     {
-        logger.LogInformation("CashFlow Worker iniciado.");
+        logger.LogInformation("CashFlow Consolidate Worker ready.");
 
         await consumer.StartAsync(stoppingToken);
         await Task.Delay(Timeout.Infinite, stoppingToken);

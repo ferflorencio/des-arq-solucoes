@@ -1,6 +1,4 @@
 ﻿using MediatR;
-using Polly;
-using Polly.Registry;
 using SolutionArchitect.CashFlow.Api.Application.Aggregates;
 using SolutionArchitect.CashFlow.Api.Application.Config;
 using SolutionArchitect.CashFlow.Api.Application.Factories;
@@ -11,18 +9,18 @@ using SolutionArchitect.CashFlow.Api.Shareable.Responses;
 namespace SolutionArchitect.CashFlow.Api.Application.Handlers;
 
 public sealed class ExecuteCashFlowOperationHandler(
-    CashFlowOperationFactory factory,
+    ICashFlowOperationFactory factory,
     ICashFlowRepository repository,
     IEventPublisher publisher,
-    ResiliencePipelineProvider<string> pipelineProvider) : IRequestHandler<ExecuteCashFlowOperationRequest, ExecuteCashFlowOperationResponse>
+    IResiliencePipelineExecutor executor) : IRequestHandler<ExecuteCashFlowOperationRequest, ExecuteCashFlowOperationResponse>
 {
-    private readonly ResiliencePipeline _pipeline = pipelineProvider.GetPipeline(ResilienceConfiguration.CashFlowPipeline);
+    private readonly IResiliencePipelineExecutor _executor = executor;
 
     public async Task<ExecuteCashFlowOperationResponse> Handle(ExecuteCashFlowOperationRequest request, CancellationToken cancellationToken)
     {
         var today = DateTime.Now.Date;
 
-        return await _pipeline.ExecuteAsync(
+        return await _executor.ExecuteAsync(
             async token =>
             {
                 var aggregate = await repository.GetByDateAsync(today, token) ?? CashFlowAggregate.Create(today);
