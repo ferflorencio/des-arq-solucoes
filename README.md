@@ -107,7 +107,7 @@ aspire run
 
 # 5. Acompanhe o status dos serviços, logs e métricas através do Dashboard do Aspire.
 
-# 6. Execute as operações utilizando o FrontEnd do cashflow
+# 6. Execute as operações utilizando os links do swagger das APIs de CashFlow e Consolidated
 
 # 7. Caso queira executar o Teste com K6 para validar o requisito de consultas por minuto nos relatórios:
   ## clicar no botão "Play" do K6 no dashboard do aspire 
@@ -119,4 +119,4 @@ aspire run
 
 ### DAS (Documento de arquitetura de solução)
 
-Para acessar a documentação de arquitetura, visite o link: [DAS](https://github.com/ferflorencio/des-arq-solucoes/blob/main/documents/architecture-solution-document.md)
+Para acessar a documentação de arquitetura, visite o link: [Documento de Arquitetura da Solução](https://github.com/ferflorencio/des-arq-solucoes/blob/main/documents/architecture-solution-document.md)

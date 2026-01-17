@@ -4,7 +4,7 @@ var scriptsK6Path = Path.Combine(solutionRoot, "tests", "k6");
 
 var db = builder.AddMongoDB("mongodb").WithDataVolume().WithMongoExpress().AddDatabase("cashflow");
 
-var redis = builder.AddRedis("redis").WithRedisInsight();
+var redis = builder.AddRedis("redis").WithDataVolume().WithRedisInsight();
 
 var rabbit = builder.AddRabbitMQ("rabbit").WithManagementPlugin();
 
@@ -12,6 +12,7 @@ var cashFlowService = builder.AddProject<Projects.SolutionArchitect_CashFlow_Api
     .WithHttpHealthCheck("/health")
     .WithReference(db)
     .WithReference(rabbit)
+    .WithUrl("/swagger", "Swagger")
     .WaitFor(db)
     .WaitFor(rabbit);
 
@@ -25,6 +26,7 @@ builder.AddProject<Projects.SolutionArchitect_CashFlow_Consolidate_Worker>("cash
 var consolidateService =  builder.AddProject<Projects.SolutionArchitect_CashFlow_Consolidate_Api>("cashflow-consolidate-api")
     .WithHttpHealthCheck("/health")
     .WithReference(redis)
+    .WithUrl("/swagger", "Swagger")
     .WaitFor(redis);
 
 var k6 = builder.AddK6("k6")
