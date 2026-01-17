@@ -22,6 +22,6 @@
     <Project Path="src/SolutionArchitect.CashFlow.ServiceDefaults/SolutionArchitect.CashFlow.ServiceDefaults.csproj" />
   </Folder>
   <Folder Name="/Tests/">
-    <Project Path="tests/SolutionArchitect.CashFlow.Tests/SolutionArchitect.CashFlow.Api.Tests.csproj" />
+    <Project Path="tests/SolutionArchitect.CashFlow.Api.Tests/SolutionArchitect.CashFlow.Api.Tests.csproj" />
   </Folder>
 </Solution>

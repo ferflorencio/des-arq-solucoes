@@ -11,7 +11,7 @@ namespace SolutionArchitect.CashFlow.Consolidate.Worker.Data.Messaging;
 public sealed class CashFlowEventConsumer(
     IConnection connection,
     ICashFlowCache cache,
-    ILogger<CashFlowEventConsumer> logger)
+    ILogger<CashFlowEventConsumer> logger) : ICashFlowEventConsumer
 {
     private const string ExchangeName = "cashflow.events";
     private const string QueueName = "cashflow.cache.worker";

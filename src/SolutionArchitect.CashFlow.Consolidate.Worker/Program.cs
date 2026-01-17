@@ -6,6 +6,7 @@ using SolutionArchitect.CashFlow.ServiceDefaults;
 using StackExchange.Redis;
 
 var builder = Host.CreateApplicationBuilder(args);
+builder.AddServiceDefaults();
 
 builder.AddRabbitMQClient("rabbit");
 
@@ -24,9 +25,9 @@ builder.Services.AddSingleton<IConnectionMultiplexer>(sp =>
         sp.GetRequiredService<RedisOptions>().ConnectionString));
 
 builder.Services.AddSingleton<ICashFlowCache, RedisCashFlowCache>();
-builder.Services.AddSingleton<CashFlowEventConsumer>();
-builder.AddServiceDefaults();
-builder.Services.AddHostedService<Worker>();
+builder.Services.AddSingleton<ICashFlowEventConsumer, CashFlowEventConsumer>();
+
+builder.Services.AddHostedService<WorkerService>();
 
 var host = builder.Build();
 host.Run();

@@ -2,9 +2,9 @@ using SolutionArchitect.CashFlow.Consolidate.Worker.Data.Messaging;
 
 namespace SolutionArchitect.CashFlow.Consolidate.Worker;
 
-public sealed class Worker(
-    ILogger<Worker> logger,
-    CashFlowEventConsumer consumer)
+public sealed class WorkerService(
+    ILogger<WorkerService> logger,
+    ICashFlowEventConsumer consumer)
     : BackgroundService
 {
     protected override async Task ExecuteAsync(
